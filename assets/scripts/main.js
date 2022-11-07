@@ -87,7 +87,6 @@ function initFormHandler() {
     //            values from the FormData object and insert them into recipeObject
     // Put empty list if there's no entry to prevent error
     let recipeObject = {};
-    this.recipeObject = this.recipeObject || [];
     for (const entry of formData.entries()) {
       recipeObject[entry[0]] = entry[1];
     }
@@ -100,7 +99,9 @@ function initFormHandler() {
     main.appendChild(recipeCard);
     // B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
     //            then save the recipes array back to localStorage
-    let recipes = getRecipesFromStorage().push(recipeObject);
+
+    let recipes = getRecipesFromStorage() || [];
+    recipes.push(recipeObject);
     saveRecipesToStorage(recipes);
   };
   // B10. TODO - Get a reference to the "Clear Local Storage" button
